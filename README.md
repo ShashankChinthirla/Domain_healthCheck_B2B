@@ -35,7 +35,8 @@ Before starting the server, please read the dedicated documentation in the `/doc
 
 1.  **[Database & Collections](docs/Database_and_Collections.md)** - A complete layout of the MongoDB tables.
 2.  **[System Architecture Flow](docs/System_Architecture_Flow.md)** - Explains exactly how the React Frontend and Node Backend communicate with Cloudflare.
-3.  **[B2B Server Setup Guide](docs/B2B_Server_Setup.md)** - The exact step-by-step terminal commands required to launch this on an Ubuntu Linux server using PM2.
+3.  **[Test Engine & Scanning Logic](docs/Test_Engine_and_Scanning_Logic.md)** - Detailed dive into the `test-engine.ts` Async Parallelism, dependencies (Native Node.js `dns`, `fetch`), and exact scan mechanics.
+4.  **[B2B Server Setup Guide](docs/B2B_Server_Setup.md)** - The exact step-by-step terminal commands required to launch this on an Ubuntu Linux server using PM2.
 
 ---
 
