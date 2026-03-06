@@ -1,137 +1,62 @@
-# 🩺 Domain & Email Health Checker
+# 🩺 Domain & Email Health Checker (B2B Edition)
 
-![Next.js](https://img.shields.io/badge/Next.js-15-black?style=for-the-badge&logo=next.js&logoColor=white)
-![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue?style=for-the-badge&logo=typescript&logoColor=white)
-![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4.0-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
-![License](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)
+A powerful, automated tool that scans thousands of company domains instantly to find broken configurations, missing SPF/DMARC records, or blacklisted IP addresses. 
 
-> **The MRI Scanner for Your Domains.** 🚀
-
-A powerful, **full-stack diagnostic tool** that performs deep health checks on thousands of domains in seconds. It allows you to analyze security protocols (SPF, DMARC, DKIM), server health, and blacklist status—all running locally on your machine with **zero cost** and **maximized privacy**.
-
----
-
-## ✨ What Makes This Special?
-
-Unlike simple lookup tools, this application acts as a complete **Bulk Analysis Engine**. It doesn't just read records; it **simulates** real-world email and web traffic to give you 100% accurate results.
-
-### 🔥 Power Features
-
-*   **⚡ Bulk Processing Beast**: Upload an Excel file with **1,000+ domains** and watch them process in real-time.
-*   **🛑 Smart Controls**:
-    *   **Pause & Resume**: Need a break? Pause the batch instantly and resume exactly where you left off.
-    *   **Instant Kill Switch**: Stop the entire operation immediately with zero lag.
-*   **🛡️ Deep Security analysis**:
-    *   **SPF**: Checks for syntax errors, lookup limits, and strictness.
-    *   **DMARC**: Validates policy enforcement (`p=reject`) to prevent spoofing.
-    *   **DKIM**: Probes standard keys to ensure email authenticity.
-*   **🚫 Blacklist Monitor**: Checks your IP against major anti-spam lists (Spamhaus, Sorbs, Spamcop).
-*   **📊 Excel Export**: One-click export of "Clean" vs "Error" domains for easy reporting.
+This repository is strictly configured for **Internal Corporate Server Deployment (Linux/PM2)**.
 
 ---
 
 ## 🚀 How It Works
 
-We bypass expensive 3rd-party APIs by using **Native Node.js Networking**:
+This application is built tightly around a stateless API and a **MongoDB Database**. It performs mass network polling independently of external browser constraints.
 
-1.  **DNS Direct**: We query authoritative nameservers directly for raw, uncached data.
-2.  **SMTP Handshake**: We connect to the Mail Server (port 25/587) to "say hello" and verify it's active, without ever sending an email.
-3.  **Web Simulation**: We act like a web browser to check if your site is secure (HTTPS) and loads correctly.
-
-All of this happens in **Parallel** (up to 50 concurrent checks) for lightning-fast speeds.
-
----
-
-## 🛠️ Tech Stack
-
-Built with the latest and greatest web technologies:
-
-*   **Framework**: [Next.js 16](https://nextjs.org/) (App Router)
-*   **Language**: [TypeScript](https://www.typescriptlang.org/) (Strict Mode)
-*   **Styling**: [Tailwind CSS 4](https://tailwindcss.com/) (Dark Mode UI)
-*   **Icons**: [Lucide React](https://lucide.dev/)
-*   **Spreadsheets**: [SheetJS](https://sheetjs.com/) (XLSX Processing)
+1. **The Admin Adds Domains:** You paste domains into the UI dashboard or use the "Sync Cloudflare" button.
+2. **The Scanner Runs Parallel Tests:** Node.js hits the network to discover IP Addresses, Emails Servers (MX), Web Accessibility (HTTP 200), and Spamhaus Blacklist status. 
+3. **Data is Stored in MongoDB:** The results are mapped securely into explicit Database Collections.
+4. **The Dashboard Updates:** The React Frontend pulls the formatted MongoDB data to show a beautiful Red/Green status board.
 
 ---
 
-## ⚡ Getting Started (Server Deployment for DevOps)
+## 🗄️ Understanding The Database (MongoDB)
+This project **requires** MongoDB to operate. All data, settings, and health checks are stored across 3 main collections.
 
-This application is designed to execute as a background service on an internal network/VPS.
+### The 3 Core Collections:
+*   `issue_domains` **(The Most Important)**: This table holds the actual health reports. Every time a domain is scanned, its exact status (`Secure`, `At Risk`, `Needs_Scan`) and the raw DNS data are saved into a document inside this collection.
+*   `user_settings`: Saves personalized preferences for your Administrators (e.g. customized Outreach Email Templates or Dashboard display names).
+*   `integrations`: Securely stores AES-GCM 256-bit encrypted API tokens from 3rd party services like Cloudflare so the system can automatically download your company's domain list seamlessly.
 
-### Prerequisites
-*   Node.js 18+ installed on your Linux server.
-*   PM2 Process Manager (`npm install -g pm2`)
-*   *(Optional)* MongoDB Instance if bypassing Firebase logic.
-
-### Installation & Deployment
-
-1.  **Clone the repository to the Server**
-    ```bash
-    git clone https://github.com/ShashankChinthirla/Domain_healthCheck_B2B.git
-    cd Domain_healthCheck_B2B
-    ```
-
-2.  **Install dependencies**
-    ```bash
-    npm install
-    ```
-
-3.  **Configure Environment Variables**
-    Create a `.env.local` file in the root directory. You MUST provide the `ENCRYPTION_KEY` to enable the AES-GCM 256-bit encryption system for 3rd party Cloudflare keys.
-    ```env
-    # Example 32-byte key:
-    ENCRYPTION_KEY="your-super-secret-32-character-key"
-    ```
-
-4.  **Production Build**
-    Compile the Next.js application:
-    ```bash
-    npm run build
-    ```
-
-5.  **Start the Background Service**
-    Launch the app using PM2 to ensure zero-downtime restarts:
-    ```bash
-    pm2 start npm --name "domain_healthcheck_b2b" -- start
-    pm2 save
-    ```
-
-6.  **Access App**
-    The scanner is now actively listening on `http://localhost:3000`. You can map this via an internal NGINX reverse proxy.
+> For a complete, deep-dive into exactly how the schemas are formatted, please read the [Database & Collections Guide](docs/Database_and_Collections.md).
 
 ---
 
-## 📚 Technical Documentation
+## 📚 Complete Documentation
 
-For deep dives into the Architecture, Backend Scaling Limits, or custom Environment configurations, please view the complete suite in the `docs/` folder:
+Before starting the server, please read the dedicated documentation in the `/docs` folder. It is written to be extremely simple and structured.
 
-* [Architecture & System Working](docs/Architecture_and_System_Working.md)
-* [Frontend Documentation](docs/Frontend_Documentation.md)
-* [Backend Security & Networking](docs/Backend_Documentation.md)
-* [Issues & Bug Retrospectives](docs/Issues_and_Challenges.md)
-
----
-
-## 📸 Usage Guide
-
-### Single Check
-Simply type a domain (e.g., `google.com`) and hit Enter. You'll get a detailed report card in seconds.
-
-### Bulk Check (The Fun Part)
-1.  Click **"Bulk Check"** in the navigation.
-2.  Upload an Excel file (`.xlsx`) with a column named `Domain`.
-3.  Sit back and watch the progress bar fly! 🚀
-4.  Use the **Pause/Resume** buttons if you need to pause the scan.
-5.  Click **Export** to save your results.
+1.  **[Database & Collections](docs/Database_and_Collections.md)** - A complete layout of the MongoDB tables.
+2.  **[System Architecture Flow](docs/System_Architecture_Flow.md)** - Explains exactly how the React Frontend and Node Backend communicate with Cloudflare.
+3.  **[B2B Server Setup Guide](docs/B2B_Server_Setup.md)** - The exact step-by-step terminal commands required to launch this on an Ubuntu Linux server using PM2.
 
 ---
 
-## 🤝 Contributing
+## ⚡ Quick Start (Local Run)
 
-We love open source! If you have ideas for new features or faster algorithms, feel free to open an issue or submit a pull request.
+If you want to run this on your laptop before moving it to the Server:
 
----
-
-## 📝 License
-
-This project is licensed under the [MIT License](LICENSE). Check, fix, and secure as many domains as you want!
+1. **Clone & Install**
+   ```bash
+   git clone https://github.com/ShashankChinthirla/Domain_healthCheck_B2B.git
+   cd Domain_healthCheck_B2B
+   npm install
+   ```
+2. **Set your Variables**
+   Create a `.env.local` file containing your MongoDB URI and a random 32-character Encryption password.
+   ```env
+   MONGODB_URI="mongodb+srv://user:pass@cluster.mongodb.net/database"
+   ENCRYPTION_KEY="12345678901234567890123456789012"
+   ```
+3. **Run normally**
+   ```bash
+   npm run dev
+   ```
+   Open `http://localhost:3000` in your browser.
