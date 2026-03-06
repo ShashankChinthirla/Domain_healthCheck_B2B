@@ -54,17 +54,21 @@ Built with the latest and greatest web technologies:
 
 ---
 
-## ⚡ Getting Started
+## ⚡ Getting Started (Server Deployment for DevOps)
+
+This application is designed to execute as a background service on an internal network/VPS.
 
 ### Prerequisites
-*   Node.js 18+ installed on your machine.
+*   Node.js 18+ installed on your Linux server.
+*   PM2 Process Manager (`npm install -g pm2`)
+*   *(Optional)* MongoDB Instance if bypassing Firebase logic.
 
-### Installation
+### Installation & Deployment
 
-1.  **Clone the repository**
+1.  **Clone the repository to the Server**
     ```bash
-    git clone https://github.com/ShashankChinthirla/Domain-Email-Health-Checker.git
-    cd domain_healthcheck
+    git clone https://github.com/ShashankChinthirla/Domain_healthCheck_B2B.git
+    cd Domain_healthCheck_B2B
     ```
 
 2.  **Install dependencies**
@@ -72,13 +76,39 @@ Built with the latest and greatest web technologies:
     npm install
     ```
 
-3.  **Run the application**
-    ```bash
-    npm run dev
+3.  **Configure Environment Variables**
+    Create a `.env.local` file in the root directory. You MUST provide the `ENCRYPTION_KEY` to enable the AES-GCM 256-bit encryption system for 3rd party Cloudflare keys.
+    ```env
+    # Example 32-byte key:
+    ENCRYPTION_KEY="your-super-secret-32-character-key"
     ```
 
-4.  **Start Checking!**
-    Open [http://localhost:3000](http://localhost:3000) in your browser.
+4.  **Production Build**
+    Compile the Next.js application:
+    ```bash
+    npm run build
+    ```
+
+5.  **Start the Background Service**
+    Launch the app using PM2 to ensure zero-downtime restarts:
+    ```bash
+    pm2 start npm --name "domain_healthcheck_b2b" -- start
+    pm2 save
+    ```
+
+6.  **Access App**
+    The scanner is now actively listening on `http://localhost:3000`. You can map this via an internal NGINX reverse proxy.
+
+---
+
+## 📚 Technical Documentation
+
+For deep dives into the Architecture, Backend Scaling Limits, or custom Environment configurations, please view the complete suite in the `docs/` folder:
+
+* [Architecture & System Working](docs/Architecture_and_System_Working.md)
+* [Frontend Documentation](docs/Frontend_Documentation.md)
+* [Backend Security & Networking](docs/Backend_Documentation.md)
+* [Issues & Bug Retrospectives](docs/Issues_and_Challenges.md)
 
 ---
 
