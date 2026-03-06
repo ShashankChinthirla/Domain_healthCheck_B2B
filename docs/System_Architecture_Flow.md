@@ -1,50 +1,144 @@
-# ⚙️ System Architecture & Workflow
+# ⚡ System Architecture & Data Flow
 
-This document explains exactly how data moves through the application, from the moment a user clicks a button to the moment it saves into MongoDB.
-
----
-
-## 1. The Core Application Flow
-
-1. **The User Interface (React/Next.js)**
-   An admin navigates to the dashboard and enters a domain (or clicks "Rescan All"). The browser packages the request and sends a standard `POST` HTTP request.
-   
-2. **The API Entry Point (`/api/scan`)**
-   The Next.js backend server receives the request. It validates the domain name (stripping off `http://` or spaces), and immediately hands it to the testing engine.
-
-3. **The Testing Engine (`test-engine.ts`)**
-   This is where the magic happens. The engine uses `Promise.all` to launch 4 things *at the exact same time*:
-   * **DNS Lookup**: Pings the web nameservers to ask "What is the IP address?"
-   * **Email Security**: Fetches all TXT records to look for SPF, DKIM, and DMARC rules.
-   * **Web Server Ping**: Fires a web request to `https://domain.com` to see if the server replies with `200 OK`.
-   * **Blacklist Check**: Reverses the IP address and checks global Spamhaus databases to ensure the domain isn't banned.
-
-4. **Aggregation & Scoring**
-   Once all tests finish, the system scores the domain. Does it lack DMARC? The system labels it "At Risk". 
-
-5. **Saving to MongoDB**
-   The massive organized JSON object is then updated or inserted into the `issue_domains` MongoDB Collection so the admin can review the history later.
+This document illustrates how every component in the Domain Health Checker B2B Edition connects, communicates, and operates together on a company server.
 
 ---
 
-## 2. The File Structure Map
+## 1. Top-Level Architecture
 
-If you need to edit code, here is exactly where everything lives:
-
-* **`/app/`**: All the React Frontend pages (e.g., `/app/admin/page.tsx` is the Admin Dashboard UI).
-* **`/app/api/`**: The Backend Server paths. If you want to change how the system fetches a domain, you edit the files in here.
-* **`/lib/test-engine.ts`**: The core brain containing all the DNS/HTTP/Blacklist testing logic.
-* **`/lib/mongodb.ts`**: The code that actually dials and connects to the MongoDB server.
-* **`/lib/encryption.ts`**: The system that encrypts Cloudflare keys before saving them to the database.
+```
+                     ┌──────────────────────────────────┐
+                     │      Admin Web Browser           │
+                     │  (React / Next.js UI Dashboard)  │
+                     └─────────────┬────────────────────┘
+                                   │  HTTPS Requests
+                                   ▼
+                     ┌──────────────────────────────────┐
+                     │    Next.js Application Server    │
+                     │       (Running via PM2)          │
+                     │                                  │
+                     │  ┌──────────┐  ┌──────────────┐  │
+                     │  │  /pages  │  │  /api routes │  │
+                     │  │ (React   │  │  (Backend    │  │
+                     │  │  UI)     │  │   Logic)     │  │
+                     │  └──────────┘  └──────┬───────┘  │
+                     └─────────────────────── │ ─────────┘
+                                              │
+               ┌──────────────────────────────▼──────────────────────────┐
+               │                   Core Services Layer                   │
+               │                                                         │
+               │  ┌──────────────────┐   ┌──────────────────────────┐   │
+               │  │  test-engine.ts  │   │     lib/mongodb.ts        │   │
+               │  │  (DNS / HTTP /   │   │  (Persistent Connection   │   │
+               │  │   Blacklist /    │   │   to MongoDB Cluster)     │   │
+               │  │   SPF/DMARC)     │   └────────────┬─────────────┘   │
+               │  └────────┬─────────┘                │                  │
+               └───────────│──────────────────────────│──────────────────┘
+                           │                          │
+               ┌───────────▼───────────┐   ┌──────────▼──────────────────┐
+               │   External Internet   │   │        MongoDB Atlas         │
+               │                       │   │                             │
+               │  - DNS Resolvers      │   │  ┌────────────────────────┐ │
+               │  - Spamhaus DNSBL     │   │  │  issue_domains         │ │
+               │  - Target Webservers  │   │  │  integrations          │ │
+               │  - Cloudflare API     │   │  │  user_settings         │ │
+               └───────────────────────┘   │  └────────────────────────┘ │
+                                           └─────────────────────────────┘
+```
 
 ---
 
-## 3. How the Cloudflare Sync Works natively
-Instead of manually typing domains, the system offers an automated Sync script.
+## 2. The Cloudflare Auto-Sync Flow
 
-1. The Admin inputs an API key in the `/settings` UI.
-2. The UI sends the key to the `/api/settings` route, where it encrypts the key and saves it to the `integrations` MongoDB collection.
-3. The Admin clicks **"Sync Cloudflare"**.
-4. The backend grabs the encrypted key from MongoDB, decrypts it, and reaches out to `https://api.cloudflare.com`.
-5. Cloudflare returns the raw domain list (e.g., thousands of domains).
-6. The Backend executes a massive `bulkWrite` into the `issue_domains` MongoDB collection, adding any domain it doesn't recognize with a status of `Needs_Scan`.
+```
+Admin clicks "Sync Cloudflare" button
+              │
+              ▼
+   POST /api/sync-cloudflare
+              │
+    ┌─────────▼─────────────────────────────────────────┐
+    │  1. Fetch encrypted key from MongoDB               │
+    │     Collection: `integrations`                     │
+    │     Field: apiKey (stored as "v1:base64encrypted") │
+    └─────────┬─────────────────────────────────────────┘
+              │
+    ┌─────────▼─────────────────────────────────────────┐
+    │  2. Decrypt key using lib/encryption.ts            │
+    │     AES-GCM 256-bit → raw Cloudflare API Token     │
+    └─────────┬─────────────────────────────────────────┘
+              │
+    ┌─────────▼─────────────────────────────────────────┐
+    │  3. Call Cloudflare API                            │
+    │     GET api.cloudflare.com/client/v4/zones         │
+    │     Response: List of 1,000s of owned domains      │
+    └─────────┬─────────────────────────────────────────┘
+              │
+    ┌─────────▼─────────────────────────────────────────┐
+    │  4. Compare vs existing MongoDB domains            │
+    │     Query: { $in: [ ...incomingDomains ] }         │
+    │     Result: Identify new domains not in DB yet     │
+    └─────────┬─────────────────────────────────────────┘
+              │
+    ┌─────────▼─────────────────────────────────────────┐
+    │  5. BulkWrite new domains to MongoDB               │
+    │     Collection: `issue_domains`                    │
+    │     Status set to: "Needs_Scan"                    │
+    │     (They will be scanned on next cron cycle)      │
+    └────────────────────────────────────────────────────┘
+              │
+              ▼
+    ✅ Toast notification shown to Admin:
+       "Synced 423 new domains. 0 duplicates skipped."
+```
+
+---
+
+## 3. The Cron Scan Loop (How Bulk Scanning Happens)
+
+Instead of GitHub Actions (cloud-only), this B2B version uses a **locally running Node.js cron worker** via the `scripts/` folder.
+
+```
+ Every N minutes (configured in scripts/cron.ts)
+              │
+              ▼
+    ┌──────────────────────────────────────────────┐
+    │  Query MongoDB for pending domains           │
+    │  db.issue_domains.find({ status: "Needs_Scan" })  │
+    └─────────────┬────────────────────────────────┘
+                  │
+                  │  Chunked into batches of 50
+                  ▼
+    ┌──────────────────────────────────────────────┐
+    │  Feed each batch to test-engine.ts           │
+    │  (Parallel Promise.allSettled execution)     │
+    └─────────────┬────────────────────────────────┘
+                  │
+                  ▼
+    ┌──────────────────────────────────────────────┐
+    │  Write results back to MongoDB               │
+    │  Update document: status, issues, dns_records│
+    │  Set: last_scanned = new Date()              │
+    └──────────────────────────────────────────────┘
+                  │
+                  ▼
+    Admin dashboard auto-refreshes to show results ✅
+```
+
+---
+
+## 4. Request / Response Lifecycle (Single Scan)
+
+```
+Time →  0ms      300ms        700ms        1000ms
+        │         │            │             │
+Browser │──POST──►│            │             │
+API     │         │──Phase1──► │             │
+DNS     │         │  A/MX/TXT  │             │
+        │         │◄───────────│             │
+API     │         │──Phase2─────────────────►│
+        │         │  SPF+HTTP+Blacklist (parallel)
+        │         │◄─────────────────────────│
+API     │◄──JSON──│  Aggregated results back │
+Browser │ Renders │            │             │
+        │ cards   │            │             │
+```

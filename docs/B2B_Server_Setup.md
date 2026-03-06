@@ -1,69 +1,156 @@
-# 💻 B2B Server Setup Guide (PM2)
+# 💻 B2B Server Setup Guide
 
-This project is built to run entirely inside a closed corporate Linux environment using **Node.js** and **PM2** (Process Manager).
+This guide walks through exactly how to get the application permanently running on a **company Linux server** using PM2.
 
 ---
 
-## Step 1: Install Requirements
-Ensure your internal Ubuntu/Debian server has Node.js and the PM2 tool installed.
+## 1. Server Requirements
 
+```
+┌─────────────────────────────────────────────────────────┐
+│             Minimum Server Specifications               │
+├─────────────────────────┬───────────────────────────────┤
+│  Operating System       │  Ubuntu 20.04+ / Debian 11+   │
+│  Node.js Version        │  18.x or higher               │
+│  RAM                    │  1 GB minimum (2 GB ideal)     │
+│  Disk Space             │  500 MB free                  │
+│  MongoDB                │  Atlas cluster OR local Mongo  │
+│  Network Access         │  Outbound Port 443 (HTTPS)     │
+└─────────────────────────┴───────────────────────────────┘
+```
+
+---
+
+## 2. Step-by-Step Deployment
+
+### Step 1: Install Node.js & PM2
 ```bash
-# Update Server
-sudo apt update
+# Update packages
+sudo apt update && sudo apt upgrade -y
 
-# Install Node (v18 or higher recommended)
+# Install Node.js 18
 curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
 sudo apt-get install -y nodejs
 
-# Install PM2 Process Manager globally
+# Install PM2 globally
 sudo npm install -g pm2
+
+# Verify installations
+node -v    # Should show v18.x.x
+pm2 -v     # Should show a version number
 ```
 
----
-
-## Step 2: Clone & Install the Project
-Download the repository to your `/var/www/` or any designated application folder.
-
+### Step 2: Clone the Project
 ```bash
 git clone https://github.com/ShashankChinthirla/Domain_healthCheck_B2B.git
 cd Domain_healthCheck_B2B
-
-# Install the necessary packages
 npm install
 ```
 
----
+### Step 3: Configure Environment Variables
 
-## Step 3: Configure `.env.local`
-The application **will crash** if it cannot connect to MongoDB or find the encryption key. 
-Create a file named `.env.local` inside the main root folder.
+Create a `.env.local` file. The app **will not start** without these:
 
 ```env
-# 1. MongoDB Connection String (Replace with your actual internal MongoDB URL)
-MONGODB_URI="mongodb+srv://user:pass@cluster.mongodb.net/domain_health"
+# ─── MongoDB ──────────────────────────────────────────────
+MONGODB_URI="mongodb+srv://USERNAME:PASSWORD@cluster0.abcde.mongodb.net/domain_health"
 
-# 2. 32-Character AES-GCM Key (Generate a random 32 character string, DO NOT LOSE THIS)
-ENCRYPTION_KEY="your-32-character-super-secret-key"
+# ─── Encryption ───────────────────────────────────────────
+# Generate a random 32-character string and NEVER lose it
+ENCRYPTION_KEY="a8f3kD92mQpL5tZwYc7vRnXjUe6bOsHi"
 
-# 3. Firebase Authentication (Only if you are using Google Firebase to login)
-NEXT_PUBLIC_FIREBASE_API_KEY="..."
+# ─── Firebase Auth ────────────────────────────────────────
+NEXT_PUBLIC_FIREBASE_API_KEY="AIzaSy..."
+NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN="yourapp.firebaseapp.com"
+NEXT_PUBLIC_FIREBASE_PROJECT_ID="yourapp"
 ```
 
----
-
-## Step 4: Build & Launch
-Next.js needs to compile the raw TypeScript strings into optimized, extremely fast JavaScript.
+### Step 4: Build & Launch
 
 ```bash
-# Compile the Build
+# Compile the Next.js production build
 npm run build
 
-# Start the application constantly in the background using PM2
+# Start the app as a background service using PM2
 pm2 start npm --name "DomainScanner-B2B" -- start
 
-# Tell PM2 to boot the app automatically if the Server resets
+# Auto-restart on server reboot
 pm2 save
 pm2 startup
 ```
 
-The application is now running securely on `http://localhost:3000` on your internal network! You can access it by typing the server's IP address and port 3000 into your browser (e.g. `192.168.1.50:3000`).
+---
+
+## 3. Deployment Lifecycle Diagram
+
+```
+Developer pushes code update to GitHub
+                │
+                ▼
+  SSH into the company Linux server
+                │
+                ▼
+  cd Domain_healthCheck_B2B
+  git pull origin main          ← Pull latest updates
+                │
+                ▼
+  npm install                   ← Install any new dependencies
+                │
+                ▼
+  npm run build                 ← Recompile TypeScript → JS
+                │
+                ▼
+  pm2 restart DomainScanner-B2B ← Zero-downtime hot reload
+                │
+                ▼
+  Application is live at localhost:3000 ✅
+```
+
+---
+
+## 4. Optional: NGINX Reverse Proxy
+
+If you want to access the app from the browser using your company domain (e.g., `scanner.company.com`) instead of typing `server-ip:3000`:
+
+```bash
+# Install NGINX
+sudo apt install nginx -y
+
+# Create a site config
+sudo nano /etc/nginx/sites-available/domain_scanner
+```
+
+Paste this config:
+```nginx
+server {
+    listen 80;
+    server_name scanner.company.com;
+
+    location / {
+        proxy_pass http://localhost:3000;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+    }
+}
+```
+
+```bash
+# Enable the site and reload NGINX
+sudo ln -s /etc/nginx/sites-available/domain_scanner /etc/nginx/sites-enabled/
+sudo nginx -t && sudo systemctl reload nginx
+```
+
+---
+
+## 5. PM2 Cheat Sheet
+
+| Command | Description |
+|:---|:---|
+| `pm2 list` | See all running processes |
+| `pm2 logs DomainScanner-B2B` | View live application logs |
+| `pm2 restart DomainScanner-B2B` | Restart the app (after code changes) |
+| `pm2 stop DomainScanner-B2B` | Temporarily stop the service |
+| `pm2 delete DomainScanner-B2B` | Permanently remove the service |

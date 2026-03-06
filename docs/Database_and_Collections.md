@@ -1,54 +1,140 @@
 # 🗄️ Database & Collections Guide
 
-This application strictly uses **MongoDB** as its primary database. It does not use SQL or local JSON files.
-
-The application stores data inside a specific database, organized into clearly structured **Collections**.
+This application uses **MongoDB** as its exclusive data store. Every domain, scan result, admin setting, and encrypted API key is persisted to one of three collections.
 
 ---
 
-## 🚀 How MongoDB is Connected
-When the Next.js server starts, it looks for the `MONGODB_URI` inside your `.env.local` file. 
-It establishes a connection using the `mongoose` library located in the `lib/mongodb.ts` file.
+## 1. Database Connection Overview
+
+```
+   Next.js Application
+          │
+          │  (lib/mongodb.ts)
+          │  Uses: mongoose.connect(MONGODB_URI)
+          ▼
+   ┌───────────────────────┐
+   │     MongoDB Atlas      │
+   │   (or local MongoDB)  │
+   │                       │
+   │  Database: "domain_health"  │
+   │  ┌────────────────────┐│
+   │  │  issue_domains     ││──── Primary scan data
+   │  ├────────────────────┤│
+   │  │  integrations      ││──── Encrypted API keys
+   │  ├────────────────────┤│
+   │  │  user_settings     ││──── Admin preferences
+   │  └────────────────────┘│
+   └───────────────────────┘
+```
 
 ---
 
-## 📂 Exact Collections & What They Store
+## 2. Collection 1: `issue_domains` ⭐ Most Important
 
-There are **three main collections** you will see if you open MongoDB Compass:
+This is the core table. Every domain the system knows about lives here. Every scan result is written here.
 
-### 1. `issue_domains`
-This is the **most important collection in the entire system**. It holds the massive payload of every domain scanned. Every row acts as the "health report" for a specific domain.
+### Document Schema (What a Single Record Looks Like)
+```json
+{
+  "_id": "ObjectId('...')",
+  "domain_name": "example.com",
+  "status": "At Risk",
+  "last_scanned": "2024-10-27T12:00:00.000Z",
+  "owner_email": "admin@example.com",
+  "issues": [
+    "Missing DMARC Record",
+    "SPF uses +all (Dangerous)"
+  ],
+  "dns_records": {
+    "a_records": ["93.184.216.34"],
+    "mx_records": ["mail.example.com"],
+    "spf_raw": "v=spf1 include:google.com +all"
+  },
+  "web_check": {
+    "http_status": 200,
+    "https_status": 200,
+    "latency_ms": 243
+  },
+  "blacklist": {
+    "listed": false,
+    "blacklists_checked": ["zen.spamhaus.org", "b.barracudacentral.org"]
+  }
+}
+```
 
-**Structure highlights:**
-* `domain_name` (String): e.g., "apple.com"
-* `status` (String): e.g., "Needs_Scan", "Secure", "At Risk"
-* `issues` (Array): A list of human-readable text strings like "Missing SPF Record" or "Blacklisted IP".
-* `last_scanned` (Date): The exact UTC timestamp of when the scanner hit the domain.
-* `dns_records` (Object): The deeply nested output containing the raw IP address (`A`) and Mail (`MX`) arrays.
-* `owner_email` (Optional String): The contact email of the person responsible for the domain.
+### Status Values (State Machine)
+```
+  Needs_Scan ──► (Scanner runs) ──► Secure
+                                 └──► At Risk
+                                 └──► Unresponsive
+```
 
-*How the app uses it:* The `/api/admin/domains` endpoint queries this specific collection to build the massive table on the Admin Dashboard.
+### Queried by:
+* `/api/admin/domains` → Paginates this collection to render the Admin dashboard table.
+* `scripts/cron.ts` → Finds all `{ status: "Needs_Scan" }` Documents to kick off bulk scanning.
 
 ---
 
-### 2. `integrations`
-This collection securely stores 3rd-party API Keys (specifically, the Cloudflare Sync Token).
+## 3. Collection 2: `integrations`
 
-**Structure highlights:**
-* `service` (String): e.g., "Cloudflare"
-* `apiKey` (String): **Warning!** This string is stored militarily encrypted (AES-GCM 256-bit). If you read this directly in MongoDB, it looks like `v1:base64gibberish`.
-* `iv` (String): The cryptographic salt used to decipher the key.
+Stores encrypted 3rd-party API keys so the system can sync domains automatically via Cloudflare.
 
-*How the app uses it:* When an Admin clicks "Sync Cloudflare", the system queries this collection, decrypts the token on-the-fly, and uses it to download the company fleet.
+### Document Schema
+```json
+{
+  "_id": "ObjectId('...')",
+  "service": "Cloudflare",
+  "label": "My Company Account",
+  "apiKey": "v1:Kx2mQ9...base64encryptedtoken...==",
+  "iv": "randombase64ivstring=="
+}
+```
+
+### How Encryption Works (Visual)
+```
+Admin types raw key: "abc123secrettoken"
+           │
+           ▼ lib/encryption.ts (AES-GCM 256)
+           │  1. Generate random IV (Salt)
+           │  2. Encrypt using ENCRYPTION_KEY from .env.local
+           │  3. Prefix result with "v1:"
+           ▼
+Stored in MongoDB: "v1:Kx2mQ9...ciphertext...=="
+           │
+           │  (When needed for Cloudflare Sync)
+           ▼
+           Decrypt ← Using same ENCRYPTION_KEY + stored IV
+           Raw token restored → sent to Cloudflare API
+```
+> ⚠️ **Critical:** If you change `ENCRYPTION_KEY` in your `.env.local`, ALL previously stored keys in this collection become permanently unreadable. Store the key safely.
 
 ---
 
-### 3. `user_settings`
-This collection stores the customized preferences for each individual Administrator.
+## 4. Collection 3: `user_settings`
 
-**Structure highlights:**
-* `user_email` (String): e.g., "admin@company.com"
-* `outreach_template` (String): The default "Hey, your server is broken" text the admin saved.
-* `email_client` (String): What the admin prefers clicking on (e.g., "gmail" vs "outlook").
+Stores per-admin customizations for how they interact with the dashboard and Outreach emails.
 
-*How the app uses it:* When an admin opens up the `/settings` page, the system searches this collection for their exact Firebase email to pre-fill their saved inputs.
+### Document Schema
+```json
+{
+  "_id": "ObjectId('...')",
+  "user_email": "john@company.com",
+  "display_name": "John Smith – IT Lead",
+  "email_client": "gmail",
+  "outreach_template": "Hello, we noticed an issue with your domain configuration...",
+  "signature": "John Smith | IT Security | +1-555-0100"
+}
+```
+
+### How This Flows into the Outreach Feature
+```
+Admin notices domain "badactor.com" has no DMARC
+                    │
+  Admin clicks the Email icon on the domain row
+                    │
+  System queries user_settings for admin's email
+                    │
+  Builds mailto: URL using saved template + signature
+                    │
+  Opens Gmail (or Outlook) pre-filled with the message ✅
+```
