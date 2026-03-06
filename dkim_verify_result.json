@@ -1,0 +1,186 @@
+[
+  {
+    "name": "DKIM Record Found",
+    "status": "Pass",
+    "info": "11 Keys",
+    "reason": "Found DKIM keys for selectors: google, default, k1, s1, mail, selector1, mandrill, smtp, pic, dkim, uk",
+    "recommendation": "No action needed.",
+    "category": "DKIM"
+  },
+  {
+    "name": "DKIM Version (google)",
+    "status": "Pass",
+    "info": "v=DKIM1",
+    "reason": "Correct version.",
+    "recommendation": "No action needed.",
+    "category": "DKIM"
+  },
+  {
+    "name": "DKIM Key Data (google)",
+    "status": "Error",
+    "info": "Missing p=",
+    "reason": "Public key data not found.",
+    "recommendation": "Fix the DKIM record syntax.",
+    "category": "DKIM"
+  },
+  {
+    "name": "DKIM Version (default)",
+    "status": "Pass",
+    "info": "v=DKIM1",
+    "reason": "Correct version.",
+    "recommendation": "No action needed.",
+    "category": "DKIM"
+  },
+  {
+    "name": "DKIM Key Data (default)",
+    "status": "Error",
+    "info": "Missing p=",
+    "reason": "Public key data not found.",
+    "recommendation": "Fix the DKIM record syntax.",
+    "category": "DKIM"
+  },
+  {
+    "name": "DKIM Version (k1)",
+    "status": "Pass",
+    "info": "v=DKIM1",
+    "reason": "Correct version.",
+    "recommendation": "No action needed.",
+    "category": "DKIM"
+  },
+  {
+    "name": "DKIM Key Data (k1)",
+    "status": "Error",
+    "info": "Missing p=",
+    "reason": "Public key data not found.",
+    "recommendation": "Fix the DKIM record syntax.",
+    "category": "DKIM"
+  },
+  {
+    "name": "DKIM Version (s1)",
+    "status": "Pass",
+    "info": "v=DKIM1",
+    "reason": "Correct version.",
+    "recommendation": "No action needed.",
+    "category": "DKIM"
+  },
+  {
+    "name": "DKIM Key Data (s1)",
+    "status": "Error",
+    "info": "Missing p=",
+    "reason": "Public key data not found.",
+    "recommendation": "Fix the DKIM record syntax.",
+    "category": "DKIM"
+  },
+  {
+    "name": "DKIM Version (mail)",
+    "status": "Pass",
+    "info": "v=DKIM1",
+    "reason": "Correct version.",
+    "recommendation": "No action needed.",
+    "category": "DKIM"
+  },
+  {
+    "name": "DKIM Key Data (mail)",
+    "status": "Error",
+    "info": "Missing p=",
+    "reason": "Public key data not found.",
+    "recommendation": "Fix the DKIM record syntax.",
+    "category": "DKIM"
+  },
+  {
+    "name": "DKIM Version (selector1)",
+    "status": "Pass",
+    "info": "v=DKIM1",
+    "reason": "Correct version.",
+    "recommendation": "No action needed.",
+    "category": "DKIM"
+  },
+  {
+    "name": "DKIM Key Data (selector1)",
+    "status": "Error",
+    "info": "Missing p=",
+    "reason": "Public key data not found.",
+    "recommendation": "Fix the DKIM record syntax.",
+    "category": "DKIM"
+  },
+  {
+    "name": "DKIM Version (mandrill)",
+    "status": "Pass",
+    "info": "v=DKIM1",
+    "reason": "Correct version.",
+    "recommendation": "No action needed.",
+    "category": "DKIM"
+  },
+  {
+    "name": "DKIM Key Data (mandrill)",
+    "status": "Error",
+    "info": "Missing p=",
+    "reason": "Public key data not found.",
+    "recommendation": "Fix the DKIM record syntax.",
+    "category": "DKIM"
+  },
+  {
+    "name": "DKIM Version (smtp)",
+    "status": "Pass",
+    "info": "v=DKIM1",
+    "reason": "Correct version.",
+    "recommendation": "No action needed.",
+    "category": "DKIM"
+  },
+  {
+    "name": "DKIM Key Data (smtp)",
+    "status": "Error",
+    "info": "Missing p=",
+    "reason": "Public key data not found.",
+    "recommendation": "Fix the DKIM record syntax.",
+    "category": "DKIM"
+  },
+  {
+    "name": "DKIM Version (pic)",
+    "status": "Pass",
+    "info": "v=DKIM1",
+    "reason": "Correct version.",
+    "recommendation": "No action needed.",
+    "category": "DKIM"
+  },
+  {
+    "name": "DKIM Key Data (pic)",
+    "status": "Error",
+    "info": "Missing p=",
+    "reason": "Public key data not found.",
+    "recommendation": "Fix the DKIM record syntax.",
+    "category": "DKIM"
+  },
+  {
+    "name": "DKIM Version (dkim)",
+    "status": "Pass",
+    "info": "v=DKIM1",
+    "reason": "Correct version.",
+    "recommendation": "No action needed.",
+    "category": "DKIM"
+  },
+  {
+    "name": "DKIM Key Data (dkim)",
+    "status": "Error",
+    "info": "Missing p=",
+    "reason": "Public key data not found.",
+    "recommendation": "Fix the DKIM record syntax.",
+    "category": "DKIM"
+  },
+  {
+    "name": "DKIM Version (uk)",
+    "status": "Pass",
+    "info": "v=DKIM1",
+    "reason": "Correct version.",
+    "recommendation": "No action needed.",
+    "category": "DKIM"
+  },
+  {
+    "name": "DKIM Key Data (uk)",
+    "status": "Error",
+    "info": "Missing p=",
+    "reason": "Public key data not found.",
+    "recommendation": "Fix the DKIM record syntax.",
+    "category": "DKIM"
+  }
+]

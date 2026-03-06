@@ -1,0 +1,434 @@
+{
+  "blacklist": [
+    {
+      "name": "Checked IP",
+      "status": "Pass",
+      "info": "173.252.87.251",
+      "reason": "This is the primary MX IP address used for the blacklist analysis.",
+      "recommendation": "Ensure this is your primary sending IP.",
+      "host": "173.252.87.251",
+      "result": "Analysis performed on 173.252.87.251",
+      "category": "Blacklist"
+    },
+    {
+      "name": "zen.spamhaus.org",
+      "status": "Warning",
+      "info": "Shared provider IP",
+      "reason": "This IP belongs to a shared email provider (e.g., Google, Meta). Reputation is managed by the provider, not the domain owner.",
+      "recommendation": "No action required unless sending mail from your own server.",
+      "host": "zen.spamhaus.org",
+      "result": "Shared IP Warning",
+      "category": "Blacklist"
+    },
+    {
+      "name": "bl.spamcop.net",
+      "status": "Pass",
+      "info": "Clean",
+      "reason": "IP 173.252.87.251 is not listed on bl.spamcop.net.",
+      "recommendation": "No action needed.",
+      "host": "bl.spamcop.net",
+      "result": "Clean",
+      "category": "Blacklist"
+    },
+    {
+      "name": "dnsbl.sorbs.net",
+      "status": "Pass",
+      "info": "Clean",
+      "reason": "IP 173.252.87.251 is not listed on dnsbl.sorbs.net.",
+      "recommendation": "No action needed.",
+      "host": "dnsbl.sorbs.net",
+      "result": "Clean",
+      "category": "Blacklist"
+    },
+    {
+      "name": "b.barracudacentral.org",
+      "status": "Pass",
+      "info": "Clean",
+      "reason": "IP 173.252.87.251 is not listed on b.barracudacentral.org.",
+      "recommendation": "No action needed.",
+      "host": "b.barracudacentral.org",
+      "result": "Clean",
+      "category": "Blacklist"
+    },
+    {
+      "name": "cbl.abuseat.org",
+      "status": "Warning",
+      "info": "Shared provider IP",
+      "reason": "This IP belongs to a shared email provider (e.g., Google, Meta). Reputation is managed by the provider, not the domain owner.",
+      "recommendation": "No action required unless sending mail from your own server.",
+      "host": "cbl.abuseat.org",
+      "result": "Shared IP Warning",
+      "category": "Blacklist"
+    },
+    {
+      "name": "ix.dnsbl.manitu.net",
+      "status": "Pass",
+      "info": "Clean",
+      "reason": "IP 173.252.87.251 is not listed on ix.dnsbl.manitu.net.",
+      "recommendation": "No action needed.",
+      "host": "ix.dnsbl.manitu.net",
+      "result": "Clean",
+      "category": "Blacklist"
+    },
+    {
+      "name": "hostkarma.junkemailfilter.com",
+      "status": "Pass",
+      "info": "Clean",
+      "reason": "IP 173.252.87.251 is not listed on hostkarma.junkemailfilter.com.",
+      "recommendation": "No action needed.",
+      "host": "hostkarma.junkemailfilter.com",
+      "result": "Clean",
+      "category": "Blacklist"
+    },
+    {
+      "name": "psbl.surriel.com",
+      "status": "Pass",
+      "info": "Clean",
+      "reason": "IP 173.252.87.251 is not listed on psbl.surriel.com.",
+      "recommendation": "No action needed.",
+      "host": "psbl.surriel.com",
+      "result": "Clean",
+      "category": "Blacklist"
+    },
+    {
+      "name": "bl.blocklist.de",
+      "status": "Pass",
+      "info": "Clean",
+      "reason": "IP 173.252.87.251 is not listed on bl.blocklist.de.",
+      "recommendation": "No action needed.",
+      "host": "bl.blocklist.de",
+      "result": "Clean",
+      "category": "Blacklist"
+    },
+    {
+      "name": "all.s5h.net",
+      "status": "Pass",
+      "info": "Clean",
+      "reason": "IP 173.252.87.251 is not listed on all.s5h.net.",
+      "recommendation": "No action needed.",
+      "host": "all.s5h.net",
+      "result": "Clean",
+      "category": "Blacklist"
+    },
+    {
+      "name": "ips.backscatterer.org",
+      "status": "Pass",
+      "info": "Clean",
+      "reason": "IP 173.252.87.251 is not listed on ips.backscatterer.org.",
+      "recommendation": "No action needed.",
+      "host": "ips.backscatterer.org",
+      "result": "Clean",
+      "category": "Blacklist"
+    },
+    {
+      "name": "dnsbl-1.uceprotect.net",
+      "status": "Pass",
+      "info": "Clean",
+      "reason": "IP 173.252.87.251 is not listed on dnsbl-1.uceprotect.net.",
+      "recommendation": "No action needed.",
+      "host": "dnsbl-1.uceprotect.net",
+      "result": "Clean",
+      "category": "Blacklist"
+    },
+    {
+      "name": "dnsbl-2.uceprotect.net",
+      "status": "Pass",
+      "info": "Clean",
+      "reason": "IP 173.252.87.251 is not listed on dnsbl-2.uceprotect.net.",
+      "recommendation": "No action needed.",
+      "host": "dnsbl-2.uceprotect.net",
+      "result": "Clean",
+      "category": "Blacklist"
+    },
+    {
+      "name": "dnsbl-3.uceprotect.net",
+      "status": "Pass",
+      "info": "Clean",
+      "reason": "IP 173.252.87.251 is not listed on dnsbl-3.uceprotect.net.",
+      "recommendation": "No action needed.",
+      "host": "dnsbl-3.uceprotect.net",
+      "result": "Clean",
+      "category": "Blacklist"
+    },
+    {
+      "name": "bl.spamrats.com",
+      "status": "Pass",
+      "info": "Clean",
+      "reason": "IP 173.252.87.251 is not listed on bl.spamrats.com.",
+      "recommendation": "No action needed.",
+      "host": "bl.spamrats.com",
+      "result": "Clean",
+      "category": "Blacklist"
+    },
+    {
+      "name": "dyna.spamrats.com",
+      "status": "Pass",
+      "info": "Clean",
+      "reason": "IP 173.252.87.251 is not listed on dyna.spamrats.com.",
+      "recommendation": "No action needed.",
+      "host": "dyna.spamrats.com",
+      "result": "Clean",
+      "category": "Blacklist"
+    },
+    {
+      "name": "noptr.spamrats.com",
+      "status": "Pass",
+      "info": "Clean",
+      "reason": "IP 173.252.87.251 is not listed on noptr.spamrats.com.",
+      "recommendation": "No action needed.",
+      "host": "noptr.spamrats.com",
+      "result": "Clean",
+      "category": "Blacklist"
+    },
+    {
+      "name": "spam.spamrats.com",
+      "status": "Pass",
+      "info": "Clean",
+      "reason": "IP 173.252.87.251 is not listed on spam.spamrats.com.",
+      "recommendation": "No action needed.",
+      "host": "spam.spamrats.com",
+      "result": "Clean",
+      "category": "Blacklist"
+    },
+    {
+      "name": "spam.dnsbl.sorbs.net",
+      "status": "Pass",
+      "info": "Clean",
+      "reason": "IP 173.252.87.251 is not listed on spam.dnsbl.sorbs.net.",
+      "recommendation": "No action needed.",
+      "host": "spam.dnsbl.sorbs.net",
+      "result": "Clean",
+      "category": "Blacklist"
+    },
+    {
+      "name": "http.dnsbl.sorbs.net",
+      "status": "Pass",
+      "info": "Clean",
+      "reason": "IP 173.252.87.251 is not listed on http.dnsbl.sorbs.net.",
+      "recommendation": "No action needed.",
+      "host": "http.dnsbl.sorbs.net",
+      "result": "Clean",
+      "category": "Blacklist"
+    },
+    {
+      "name": "socks.dnsbl.sorbs.net",
+      "status": "Pass",
+      "info": "Clean",
+      "reason": "IP 173.252.87.251 is not listed on socks.dnsbl.sorbs.net.",
+      "recommendation": "No action needed.",
+      "host": "socks.dnsbl.sorbs.net",
+      "result": "Clean",
+      "category": "Blacklist"
+    },
+    {
+      "name": "misc.dnsbl.sorbs.net",
+      "status": "Pass",
+      "info": "Clean",
+      "reason": "IP 173.252.87.251 is not listed on misc.dnsbl.sorbs.net.",
+      "recommendation": "No action needed.",
+      "host": "misc.dnsbl.sorbs.net",
+      "result": "Clean",
+      "category": "Blacklist"
+    },
+    {
+      "name": "smtp.dnsbl.sorbs.net",
+      "status": "Pass",
+      "info": "Clean",
+      "reason": "IP 173.252.87.251 is not listed on smtp.dnsbl.sorbs.net.",
+      "recommendation": "No action needed.",
+      "host": "smtp.dnsbl.sorbs.net",
+      "result": "Clean",
+      "category": "Blacklist"
+    },
+    {
+      "name": "web.dnsbl.sorbs.net",
+      "status": "Pass",
+      "info": "Clean",
+      "reason": "IP 173.252.87.251 is not listed on web.dnsbl.sorbs.net.",
+      "recommendation": "No action needed.",
+      "host": "web.dnsbl.sorbs.net",
+      "result": "Clean",
+      "category": "Blacklist"
+    },
+    {
+      "name": "zombie.dnsbl.sorbs.net",
+      "status": "Pass",
+      "info": "Clean",
+      "reason": "IP 173.252.87.251 is not listed on zombie.dnsbl.sorbs.net.",
+      "recommendation": "No action needed.",
+      "host": "zombie.dnsbl.sorbs.net",
+      "result": "Clean",
+      "category": "Blacklist"
+    },
+    {
+      "name": "db.wpbl.info",
+      "status": "Pass",
+      "info": "Clean",
+      "reason": "IP 173.252.87.251 is not listed on db.wpbl.info.",
+      "recommendation": "No action needed.",
+      "host": "db.wpbl.info",
+      "result": "Clean",
+      "category": "Blacklist"
+    },
+    {
+      "name": "truncate.gbudb.net",
+      "status": "Pass",
+      "info": "Clean",
+      "reason": "IP 173.252.87.251 is not listed on truncate.gbudb.net.",
+      "recommendation": "No action needed.",
+      "host": "truncate.gbudb.net",
+      "result": "Clean",
+      "category": "Blacklist"
+    },
+    {
+      "name": "bl.mailspike.net",
+      "status": "Pass",
+      "info": "Clean",
+      "reason": "IP 173.252.87.251 is not listed on bl.mailspike.net.",
+      "recommendation": "No action needed.",
+      "host": "bl.mailspike.net",
+      "result": "Clean",
+      "category": "Blacklist"
+    },
+    {
+      "name": "z.mailspike.net",
+      "status": "Pass",
+      "info": "Clean",
+      "reason": "IP 173.252.87.251 is not listed on z.mailspike.net.",
+      "recommendation": "No action needed.",
+      "host": "z.mailspike.net",
+      "result": "Clean",
+      "category": "Blacklist"
+    },
+    {
+      "name": "bl.0spam.org",
+      "status": "Pass",
+      "info": "Clean",
+      "reason": "IP 173.252.87.251 is not listed on bl.0spam.org.",
+      "recommendation": "No action needed.",
+      "host": "bl.0spam.org",
+      "result": "Clean",
+      "category": "Blacklist"
+    },
+    {
+      "name": "nbl.0spam.org",
+      "status": "Pass",
+      "info": "Clean",
+      "reason": "IP 173.252.87.251 is not listed on nbl.0spam.org.",
+      "recommendation": "No action needed.",
+      "host": "nbl.0spam.org",
+      "result": "Clean",
+      "category": "Blacklist"
+    },
+    {
+      "name": "bl.nordspam.com",
+      "status": "Pass",
+      "info": "Clean",
+      "reason": "IP 173.252.87.251 is not listed on bl.nordspam.com.",
+      "recommendation": "No action needed.",
+      "host": "bl.nordspam.com",
+      "result": "Clean",
+      "category": "Blacklist"
+    },
+    {
+      "name": "bl.drmx.org",
+      "status": "Pass",
+      "info": "Clean",
+      "reason": "IP 173.252.87.251 is not listed on bl.drmx.org.",
+      "recommendation": "No action needed.",
+      "host": "bl.drmx.org",
+      "result": "Clean",
+      "category": "Blacklist"
+    },
+    {
+      "name": "bl.konstant.no",
+      "status": "Pass",
+      "info": "Clean",
+      "reason": "IP 173.252.87.251 is not listed on bl.konstant.no.",
+      "recommendation": "No action needed.",
+      "host": "bl.konstant.no",
+      "result": "Clean",
+      "category": "Blacklist"
+    },
+    {
+      "name": "work.drbl.gremlin.ru",
+      "status": "Pass",
+      "info": "Clean",
+      "reason": "IP 173.252.87.251 is not listed on work.drbl.gremlin.ru.",
+      "recommendation": "No action needed.",
+      "host": "work.drbl.gremlin.ru",
+      "result": "Clean",
+      "category": "Blacklist"
+    },
+    {
+      "name": "netblock.pedantic.org",
+      "status": "Pass",
+      "info": "Clean",
+      "reason": "IP 173.252.87.251 is not listed on netblock.pedantic.org.",
+      "recommendation": "No action needed.",
+      "host": "netblock.pedantic.org",
+      "result": "Clean",
+      "category": "Blacklist"
+    },
+    {
+      "name": "ubl.unsubscore.com",
+      "status": "Pass",
+      "info": "Clean",
+      "reason": "IP 173.252.87.251 is not listed on ubl.unsubscore.com.",
+      "recommendation": "No action needed.",
+      "host": "ubl.unsubscore.com",
+      "result": "Clean",
+      "category": "Blacklist"
+    },
+    {
+      "name": "virbl.dnsbl.bit.nl",
+      "status": "Pass",
+      "info": "Clean",
+      "reason": "IP 173.252.87.251 is not listed on virbl.dnsbl.bit.nl.",
+      "recommendation": "No action needed.",
+      "host": "virbl.dnsbl.bit.nl",
+      "result": "Clean",
+      "category": "Blacklist"
+    },
+    {
+      "name": "dnsbl.inps.de",
+      "status": "Pass",
+      "info": "Clean",
+      "reason": "IP 173.252.87.251 is not listed on dnsbl.inps.de.",
+      "recommendation": "No action needed.",
+      "host": "dnsbl.inps.de",
+      "result": "Clean",
+      "category": "Blacklist"
+    },
+    {
+      "name": "dnsbl.zapbl.net",
+      "status": "Pass",
+      "info": "Clean",
+      "reason": "IP 173.252.87.251 is not listed on dnsbl.zapbl.net.",
+      "recommendation": "No action needed.",
+      "host": "dnsbl.zapbl.net",
+      "result": "Clean",
+      "category": "Blacklist"
+    },
+    {
+      "name": "singular.ttk.pte.hu",
+      "status": "Pass",
+      "info": "Clean",
+      "reason": "IP 173.252.87.251 is not listed on singular.ttk.pte.hu.",
+      "recommendation": "No action needed.",
+      "host": "singular.ttk.pte.hu",
+      "result": "Clean",
+      "category": "Blacklist"
+    }
+  ],
+  "dkim": [
+    {
+      "name": "DKIM Selectors",
+      "status": "Pass",
+      "info": "Info: Selector not discoverable",
+      "reason": "Common selectors were checked but not found. This is normal if you use custom selectors.",
+      "recommendation": "No action needed unless you are missing DKIM.",
+      "category": "DKIM"
+    }
+  ]
+}

@@ -1,0 +1,328 @@
+{
+  "dns": [
+    {
+      "name": "Local DNS Resolver",
+      "status": "Pass",
+      "info": "Google/Cloudflare (Safe)",
+      "reason": "Using trusted public resolvers (8.8.8.8, 1.1.1.1).",
+      "recommendation": "No action needed.",
+      "category": "DNS"
+    },
+    {
+      "name": "Apex CNAME",
+      "status": "Pass",
+      "info": "Not Found",
+      "reason": "No CNAME record found at root domain (RFC Compliant).",
+      "recommendation": "No action needed.",
+      "category": "DNS"
+    },
+    {
+      "name": "DNS Record Published",
+      "status": "Pass",
+      "info": "Primary IP Found",
+      "reason": "A DNS record exists for this domain.",
+      "recommendation": "No action needed.",
+      "category": "DNS"
+    },
+    {
+      "name": "A Record Count",
+      "status": "Pass",
+      "info": "3 IP(s)",
+      "reason": "Found 3 IPv4 addresses.",
+      "recommendation": "Ensure these IPs are correct.",
+      "category": "DNS"
+    },
+    {
+      "name": "Public IP Check",
+      "status": "Pass",
+      "info": "Valid Public IP",
+      "reason": "All IPs appear to be valid public addresses.",
+      "recommendation": "No action needed.",
+      "category": "DNS"
+    },
+    {
+      "name": "MX Record Published",
+      "status": "Pass",
+      "info": "1 Records",
+      "reason": "Mail Exchange records found.",
+      "recommendation": "No action needed.",
+      "category": "DNS"
+    },
+    {
+      "name": "MX Canonical Check",
+      "status": "Pass",
+      "info": "Standard Host",
+      "reason": "MX record points to a canonical host (not a CNAME).",
+      "recommendation": "No action needed.",
+      "category": "DNS"
+    },
+    {
+      "name": "Primary MX Resolution",
+      "status": "Pass",
+      "info": "amazon-smtp.amazon.com -> 44.231.24.41",
+      "reason": "Primary MX host resolves to an IP.",
+      "recommendation": "No action needed.",
+      "category": "DNS"
+    },
+    {
+      "name": "NS Record Published",
+      "status": "Pass",
+      "info": "8 Nameservers",
+      "reason": "Nameservers are configured.",
+      "recommendation": "No action needed.",
+      "category": "DNS"
+    },
+    {
+      "name": "NS Redundancy",
+      "status": "Pass",
+      "info": "Sufficient (2+)",
+      "reason": "Multiple nameservers provide redundancy.",
+      "recommendation": "No action needed.",
+      "category": "DNS"
+    },
+    {
+      "name": "NS Glue Validity",
+      "status": "Warning",
+      "info": "Unresolvable NS",
+      "reason": "One or more nameservers could not be resolved.",
+      "recommendation": "Check your nameserver hostnames.",
+      "category": "DNS"
+    },
+    {
+      "name": "SOA Record Published",
+      "status": "Warning",
+      "info": "Missing",
+      "reason": "SOA record not found.",
+      "recommendation": "Ensure your zone file is valid.",
+      "category": "DNS"
+    },
+    {
+      "name": "CAA Record",
+      "status": "Pass",
+      "info": "Not published (Optional)",
+      "reason": "No CAA records found.",
+      "recommendation": "Consider adding CAA records for better security.",
+      "category": "DNS"
+    }
+  ],
+  "spf": [
+    {
+      "name": "SPF Record Found",
+      "status": "Pass",
+      "info": "Present",
+      "reason": "An SPF TXT record was found in DNS.",
+      "recommendation": "No action needed.",
+      "category": "SPF"
+    },
+    {
+      "name": "SPF Multiple Records",
+      "status": "Pass",
+      "info": "Valid (1 record)",
+      "reason": "Only one SPF record exists.",
+      "recommendation": "No action needed.",
+      "category": "SPF"
+    },
+    {
+      "name": "SPF Version",
+      "status": "Pass",
+      "info": "v=spf1",
+      "reason": "Correct version tag.",
+      "recommendation": "No action needed.",
+      "category": "SPF"
+    },
+    {
+      "name": "SPF Mechanisms Ordering",
+      "status": "Pass",
+      "info": "Correct",
+      "reason": "Terminator is the last mechanism.",
+      "recommendation": "No action needed.",
+      "category": "SPF"
+    },
+    {
+      "name": "SPF Lookup Count",
+      "status": "Pass",
+      "info": "4 (Safe < 10)",
+      "reason": "Lookup count is within correct limits.",
+      "recommendation": "No action needed.",
+      "category": "SPF"
+    },
+    {
+      "name": "SPF Policy Strictness",
+      "status": "Pass",
+      "info": "Hard Fail (-all)",
+      "reason": "Strict policy (Hard Fail).",
+      "recommendation": "No action needed.",
+      "category": "SPF"
+    },
+    {
+      "name": "Global PTR Mechanism",
+      "status": "Pass",
+      "info": "Not used",
+      "reason": "No deprecated mechanisms found.",
+      "recommendation": "No action needed.",
+      "category": "SPF"
+    },
+    {
+      "name": "SPF Void Lookups",
+      "status": "Pass",
+      "info": "Clean",
+      "reason": "All checked includes resolve correctly.",
+      "recommendation": "No action needed.",
+      "category": "SPF"
+    }
+  ],
+  "dmarc": [
+    {
+      "name": "DMARC Record Found",
+      "status": "Pass",
+      "info": "Present",
+      "reason": "DMARC record published at _dmarc subdomain.",
+      "recommendation": "No action needed.",
+      "category": "DMARC"
+    },
+    {
+      "name": "DMARC Policy",
+      "status": "Pass",
+      "info": "Quarantine",
+      "reason": "Suspicious emails are sent to spam.",
+      "recommendation": "Consider moving to reject for full protection.",
+      "category": "DMARC"
+    },
+    {
+      "name": "DMARC Subdomain Policy",
+      "status": "Pass",
+      "info": "Inherited",
+      "reason": "Subdomains inherit the main policy.",
+      "recommendation": "No action needed.",
+      "category": "DMARC"
+    },
+    {
+      "name": "DMARC Percentage",
+      "status": "Pass",
+      "info": "100%",
+      "reason": "Policy applies to all emails.",
+      "recommendation": "No action needed.",
+      "category": "DMARC"
+    },
+    {
+      "name": "DMARC RUA Reports",
+      "status": "Pass",
+      "info": "Enabled",
+      "reason": "Aggregate reports configured.",
+      "recommendation": "No action needed.",
+      "category": "DMARC"
+    },
+    {
+      "name": "DMARC RUF Reports",
+      "status": "Pass",
+      "info": "Enabled",
+      "reason": "Forensic reports configured (may not be supported by all providers).",
+      "recommendation": "No action needed.",
+      "category": "DMARC"
+    },
+    {
+      "name": "SPF Alignment Mode",
+      "status": "Pass",
+      "info": "Relaxed (Default)",
+      "reason": "Relaxed alignment allows subdomains.",
+      "recommendation": "No action needed.",
+      "category": "DMARC"
+    },
+    {
+      "name": "DKIM Alignment Mode",
+      "status": "Pass",
+      "info": "Relaxed (Default)",
+      "reason": "Relaxed alignment allows subdomains.",
+      "recommendation": "No action needed.",
+      "category": "DMARC"
+    },
+    {
+      "name": "BIMI Readiness",
+      "status": "Pass",
+      "info": "Ready",
+      "reason": "DMARC policy supports BIMI implementation.",
+      "recommendation": "You can now set up a BIMI record.",
+      "host": "amazon.com",
+      "result": "BIMI Ready",
+      "category": "DMARC"
+    }
+  ],
+  "blacklist": [
+    {
+      "name": "Checked IP",
+      "status": "Pass",
+      "info": "44.231.24.41",
+      "reason": "This is the primary MX IP address used for the blacklist analysis.",
+      "recommendation": "Ensure this is your primary sending IP.",
+      "host": "44.231.24.41",
+      "result": "Analysis performed on 44.231.24.41",
+      "category": "Blacklist"
+    },
+    {
+      "name": "zen.spamhaus.org",
+      "status": "Pass",
+      "info": "Clean",
+      "reason": "IP 44.231.24.41 is not listed on zen.spamhaus.org.",
+      "recommendation": "No action needed.",
+      "host": "zen.spamhaus.org",
+      "result": "Clean",
+      "category": "Blacklist"
+    },
+    {
+      "name": "bl.spamcop.net",
+      "status": "Pass",
+      "info": "Clean",
+      "reason": "IP 44.231.24.41 is not listed on bl.spamcop.net.",
+      "recommendation": "No action needed.",
+      "host": "bl.spamcop.net",
+      "result": "Clean",
+      "category": "Blacklist"
+    },
+    {
+      "name": "b.barracudacentral.org",
+      "status": "Pass",
+      "info": "Clean",
+      "reason": "IP 44.231.24.41 is not listed on b.barracudacentral.org.",
+      "recommendation": "No action needed.",
+      "host": "b.barracudacentral.org",
+      "result": "Clean",
+      "category": "Blacklist"
+    }
+  ],
+  "webServer": [
+    {
+      "name": "HTTPS Availability",
+      "status": "Pass",
+      "info": "Status 200",
+      "reason": "Web server returned status 200.",
+      "recommendation": "No action needed if this is your expected behavior.",
+      "category": "Web Server"
+    },
+    {
+      "name": "SSL Certificate",
+      "status": "Pass",
+      "info": "Valid (351 days left)",
+      "reason": "Certificate is valid.",
+      "recommendation": "No action needed.",
+      "category": "Web Server"
+    },
+    {
+      "name": "SSL Chain",
+      "status": "Pass",
+      "info": "Valid",
+      "reason": "Certificate chain is trusted.",
+      "recommendation": "No action needed.",
+      "category": "Web Server"
+    }
+  ],
+  "full_categories": [
+    "problems",
+    "dns",
+    "spf",
+    "dmarc",
+    "dkim",
+    "blacklist",
+    "webServer",
+    "smtp"
+  ]
+}

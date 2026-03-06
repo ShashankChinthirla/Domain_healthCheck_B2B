@@ -1,0 +1,16 @@
+[DNS] Using high-capacity public resolvers (Cloudflare/Google)
+Testing: 1791financialserviceshq.com
+
+[problems] ERRORS (2):
+  ERROR: Primary MX Resolution | Could not resolve aspmx.l.google.com
+  ERROR: NS Record Published | Missing
+
+[dns] ERRORS (2):
+  ERROR: Primary MX Resolution | Could not resolve aspmx.l.google.com
+  ERROR: NS Record Published | Missing
+
+=== SUMMARY ===
+Errors: 4
+Warnings (advisory): 4
+Pass: 32
+Status: AT RISK ⚠️

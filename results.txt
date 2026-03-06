@@ -1,0 +1,14 @@
+[DNS] Using high-capacity public resolvers (Cloudflare/Google)
+Testing: accountabilityincpro.com
+
+[problems] ERRORS (1):
+  ERROR: NS Record Published | Missing
+
+[dns] ERRORS (1):
+  ERROR: NS Record Published | Missing
+
+=== SUMMARY ===
+Errors: 2
+Warnings (advisory): 2
+Pass: 28
+Status: AT RISK ⚠️

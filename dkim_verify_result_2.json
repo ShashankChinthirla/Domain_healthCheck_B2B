@@ -1,0 +1,10 @@
+[
+  {
+    "name": "DKIM Selectors",
+    "status": "Pass",
+    "info": "Info: Selector not discoverable",
+    "reason": "Common selectors were checked but not found. This is normal if you use custom selectors.",
+    "recommendation": "No action needed unless you are missing DKIM.",
+    "category": "DKIM"
+  }
+]

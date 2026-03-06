@@ -1,0 +1,50 @@
+[
+  {
+    "_id": "699d868724c2f08bae05534e",
+    "domain": "b2brocketskit.com",
+    "dmarcFull": "Missing",
+    "healthStatus": "12 Errors, 4 Warnings",
+    "issueCategory": "No_SPF_AND_DMARC",
+    "issues": {
+      "spf": "ERROR: SPF Record Found - No SPF record found.",
+      "dmarc": "ERROR: DMARC Record Found - No DMARC record found at _dmarc.b2brocketskit.com",
+      "dkim": null,
+      "dns": "ERROR: DNS Record Published - DNS lookup failed entirely. | ERROR: MX Record Published - No MX records found. | WARNING: SOA Serial Number - Serial does not match recommended YYYYMMDDnn format (e.g., 2024010101).",
+      "web": "ERROR: HTTP Availability - Could not connect via HTTP (Port 80). | ERROR: HTTPS Availability - Could not connect via HTTPS (Port 443). | WARNING: SSL Handshake - SSL Connection failed.",
+      "blacklist": null,
+      "smtp": null
+    },
+    "issuesDetected": 16,
+    "score": 45,
+    "spfFull": "Missing",
+    "status": "At Risk",
+    "timestamp": "2026-02-24T11:07:51.287Z",
+    "updatedDmarcFull": "v=DMARC1; p=reject; sp=reject; pct=100; rua=mailto:dmarc-reports@b2brocketskit.com; adkim=r; aspf=r;",
+    "updatedSpfFull": "v=spf1 a mx ~all",
+    "user": "No User found"
+  },
+  {
+    "_id": "699d868724c2f08bae05534f",
+    "domain": "b2bthrust.com",
+    "dmarcFull": "Missing",
+    "healthStatus": "12 Errors, 4 Warnings",
+    "issueCategory": "No_SPF_AND_DMARC",
+    "issues": {
+      "spf": "ERROR: SPF Record Found - No SPF record found.",
+      "dmarc": "ERROR: DMARC Record Found - No DMARC record found at _dmarc.b2bthrust.com",
+      "dkim": null,
+      "dns": "ERROR: DNS Record Published - DNS lookup failed entirely. | ERROR: MX Record Published - No MX records found. | WARNING: SOA Serial Number - Serial does not match recommended YYYYMMDDnn format (e.g., 2024010101).",
+      "web": "ERROR: HTTP Availability - Could not connect via HTTP (Port 80). | ERROR: HTTPS Availability - Could not connect via HTTPS (Port 443). | WARNING: SSL Handshake - SSL Connection failed.",
+      "blacklist": null,
+      "smtp": null
+    },
+    "issuesDetected": 16,
+    "score": 45,
+    "spfFull": "Missing",
+    "status": "At Risk",
+    "timestamp": "2026-02-24T11:07:51.287Z",
+    "updatedDmarcFull": "v=DMARC1; p=reject; sp=reject; pct=100; rua=mailto:dmarc-reports@b2bthrust.com; adkim=r; aspf=r;",
+    "updatedSpfFull": "v=spf1 a mx ~all",
+    "user": "No User found"
+  }
+]

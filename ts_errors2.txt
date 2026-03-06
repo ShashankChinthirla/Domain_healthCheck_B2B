@@ -1,0 +1,1 @@
+app/api/b2b-rocket/route.ts(106,49): error TS2339: Property 'errors' does not exist on type 'ZodError<{ domain: string; status?: "Secure" | "At Risk" | undefined; healthStatus?: string | undefined; score?: number | undefined; issuesDetected?: number | undefined; issueCategory?: string | undefined; }>'.

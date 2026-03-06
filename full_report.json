@@ -1,0 +1,546 @@
+{
+  "domain": "app3fcaptiveservicesdev.com",
+  "rawSpf": "v=spf1 include:_spf.google.com ~all",
+  "rawDmarc": "v=DMARC1; p=reject; sp=reject; pct=100; rua=mailto:Patrick@app3fcaptiveservicesdev.com; ruf=mailto:Patrick@app3fcaptiveservicesdev.com; adkim=r; aspf=r;",
+  "dmarcPolicy": null,
+  "mxRecords": [
+    "aspmx.l.google.com",
+    "alt1.aspmx.l.google.com",
+    "alt2.aspmx.l.google.com",
+    "alt4.aspmx.l.google.com",
+    "alt3.aspmx.l.google.com"
+  ],
+  "score": 68,
+  "categories": {
+    "problems": {
+      "category": "Problems",
+      "tests": [
+        {
+          "name": "DNS Record Published",
+          "status": "Warning",
+          "info": "DNS Lookup Failed",
+          "reason": "Transient DNS lookup failure. Domain may exist but DNS was temporarily unreachable.",
+          "recommendation": "Check your domain registrar settings. Try again.",
+          "category": "DNS"
+        },
+        {
+          "name": "NS Glue Validity",
+          "status": "Warning",
+          "info": "Unresolvable NS",
+          "reason": "One or more nameservers could not be resolved.",
+          "recommendation": "Check your nameserver hostnames.",
+          "category": "DNS"
+        },
+        {
+          "name": "SOA Record Published",
+          "status": "Warning",
+          "info": "DNS Error",
+          "reason": "DNS lookup failed: DNS Timeout",
+          "recommendation": "Try again later.",
+          "category": "DNS"
+        },
+        {
+          "name": "Spamhaus DBL",
+          "status": "Warning",
+          "info": "TIMEOUT",
+          "reason": "app3fcaptiveservicesdev.com is clean on Spamhaus DBL",
+          "recommendation": "No action needed.",
+          "category": "Blacklist"
+        },
+        {
+          "name": "SURBL (multi)",
+          "status": "Warning",
+          "info": "TIMEOUT",
+          "reason": "app3fcaptiveservicesdev.com is clean on SURBL (multi)",
+          "recommendation": "No action needed.",
+          "category": "Blacklist"
+        },
+        {
+          "name": "SEM FRESH",
+          "status": "Warning",
+          "info": "TIMEOUT",
+          "reason": "app3fcaptiveservicesdev.com is clean on SEM FRESH",
+          "recommendation": "No action needed.",
+          "category": "Blacklist"
+        },
+        {
+          "name": "SEM URI",
+          "status": "Warning",
+          "info": "TIMEOUT",
+          "reason": "app3fcaptiveservicesdev.com is clean on SEM URI",
+          "recommendation": "No action needed.",
+          "category": "Blacklist"
+        },
+        {
+          "name": "SEM URIRED",
+          "status": "Warning",
+          "info": "TIMEOUT",
+          "reason": "app3fcaptiveservicesdev.com is clean on SEM URIRED",
+          "recommendation": "No action needed.",
+          "category": "Blacklist"
+        },
+        {
+          "name": "ivmURI",
+          "status": "Warning",
+          "info": "TIMEOUT",
+          "reason": "app3fcaptiveservicesdev.com is clean on ivmURI",
+          "recommendation": "No action needed.",
+          "category": "Blacklist"
+        },
+        {
+          "name": "NordSpam DBL",
+          "status": "Warning",
+          "info": "TIMEOUT",
+          "reason": "app3fcaptiveservicesdev.com is clean on NordSpam DBL",
+          "recommendation": "No action needed.",
+          "category": "Blacklist"
+        },
+        {
+          "name": "SORBS RHSBL",
+          "status": "Warning",
+          "info": "TIMEOUT",
+          "reason": "app3fcaptiveservicesdev.com is clean on SORBS RHSBL",
+          "recommendation": "No action needed.",
+          "category": "Blacklist"
+        },
+        {
+          "name": "MX IP Resolution",
+          "status": "Error",
+          "info": "Could not resolve any MX IPs",
+          "reason": "DNS lookup for all MX hosts failed.",
+          "recommendation": "Check if your MX hosts exist.",
+          "category": "Blacklist"
+        }
+      ],
+      "stats": {
+        "passed": 0,
+        "warnings": 11,
+        "errors": 1
+      }
+    },
+    "dns": {
+      "category": "DNS",
+      "tests": [
+        {
+          "name": "Local DNS Resolver",
+          "status": "Pass",
+          "info": "Google/Cloudflare (Safe)",
+          "reason": "Using trusted public resolvers (8.8.8.8, 1.1.1.1).",
+          "recommendation": "No action needed.",
+          "category": "DNS"
+        },
+        {
+          "name": "Apex CNAME",
+          "status": "Pass",
+          "info": "Not Found",
+          "reason": "No CNAME record found at root domain (RFC Compliant).",
+          "recommendation": "No action needed.",
+          "category": "DNS"
+        },
+        {
+          "name": "DNS Record Published",
+          "status": "Warning",
+          "info": "DNS Lookup Failed",
+          "reason": "Transient DNS lookup failure. Domain may exist but DNS was temporarily unreachable.",
+          "recommendation": "Check your domain registrar settings. Try again.",
+          "category": "DNS"
+        },
+        {
+          "name": "MX Record Published",
+          "status": "Pass",
+          "info": "5 Records",
+          "reason": "Mail Exchange records found.",
+          "recommendation": "No action needed.",
+          "category": "DNS"
+        },
+        {
+          "name": "MX Canonical Check",
+          "status": "Pass",
+          "info": "Standard Host",
+          "reason": "MX record points to a canonical host (not a CNAME).",
+          "recommendation": "No action needed.",
+          "category": "DNS"
+        },
+        {
+          "name": "Primary MX Resolution",
+          "status": "Pass",
+          "info": "aspmx.l.google.com -> IPv6",
+          "reason": "Primary MX host resolves to an IPv6 address.",
+          "recommendation": "Ensure IPv4 is also supported for maximum compatibility.",
+          "category": "DNS"
+        },
+        {
+          "name": "NS Record Published",
+          "status": "Pass",
+          "info": "2 Nameservers",
+          "reason": "Nameservers are configured.",
+          "recommendation": "No action needed.",
+          "category": "DNS"
+        },
+        {
+          "name": "NS Redundancy",
+          "status": "Pass",
+          "info": "Sufficient (2+)",
+          "reason": "Multiple nameservers provide redundancy.",
+          "recommendation": "No action needed.",
+          "category": "DNS"
+        },
+        {
+          "name": "NS Glue Validity",
+          "status": "Warning",
+          "info": "Unresolvable NS",
+          "reason": "One or more nameservers could not be resolved.",
+          "recommendation": "Check your nameserver hostnames.",
+          "category": "DNS"
+        },
+        {
+          "name": "SOA Record Published",
+          "status": "Warning",
+          "info": "DNS Error",
+          "reason": "DNS lookup failed: DNS Timeout",
+          "recommendation": "Try again later.",
+          "category": "DNS"
+        },
+        {
+          "name": "CAA Record",
+          "status": "Pass",
+          "info": "Not published (Optional)",
+          "reason": "No CAA records found.",
+          "recommendation": "Consider adding CAA records for better security.",
+          "category": "DNS"
+        }
+      ],
+      "stats": {
+        "passed": 8,
+        "warnings": 3,
+        "errors": 0
+      }
+    },
+    "spf": {
+      "category": "SPF",
+      "tests": [
+        {
+          "name": "SPF Record Found",
+          "status": "Pass",
+          "info": "Present",
+          "reason": "An SPF TXT record was found in DNS.",
+          "recommendation": "No action needed.",
+          "category": "SPF"
+        },
+        {
+          "name": "SPF Multiple Records",
+          "status": "Pass",
+          "info": "Valid (1 record)",
+          "reason": "Only one SPF record exists.",
+          "recommendation": "No action needed.",
+          "category": "SPF"
+        },
+        {
+          "name": "SPF Version",
+          "status": "Pass",
+          "info": "v=spf1",
+          "reason": "Correct version tag.",
+          "recommendation": "No action needed.",
+          "category": "SPF"
+        },
+        {
+          "name": "SPF Mechanisms Ordering",
+          "status": "Pass",
+          "info": "Correct",
+          "reason": "Terminator is the last mechanism.",
+          "recommendation": "No action needed.",
+          "category": "SPF"
+        },
+        {
+          "name": "SPF Lookup Count",
+          "status": "Pass",
+          "info": "1 (Safe < 10)",
+          "reason": "Lookup count is within correct limits.",
+          "recommendation": "No action needed.",
+          "category": "SPF"
+        },
+        {
+          "name": "SPF Policy Strictness",
+          "status": "Pass",
+          "info": "Soft Fail (~all)",
+          "reason": "Soft fail (Transitionary).",
+          "recommendation": "Consider moving to -all.",
+          "category": "SPF"
+        },
+        {
+          "name": "Global PTR Mechanism",
+          "status": "Pass",
+          "info": "Not used",
+          "reason": "No deprecated mechanisms found.",
+          "recommendation": "No action needed.",
+          "category": "SPF"
+        },
+        {
+          "name": "SPF Void Lookups",
+          "status": "Pass",
+          "info": "Clean",
+          "reason": "All checked includes resolve correctly.",
+          "recommendation": "No action needed.",
+          "category": "SPF"
+        }
+      ],
+      "stats": {
+        "passed": 8,
+        "warnings": 0,
+        "errors": 0
+      }
+    },
+    "dmarc": {
+      "category": "DMARC",
+      "tests": [
+        {
+          "name": "DMARC Record Found",
+          "status": "Pass",
+          "info": "Present",
+          "reason": "DMARC record published at _dmarc subdomain.",
+          "recommendation": "No action needed.",
+          "category": "DMARC"
+        },
+        {
+          "name": "DMARC Policy",
+          "status": "Pass",
+          "info": "Reject (Secure)",
+          "reason": "Strict enforcement policy enabled.",
+          "recommendation": "No action needed.",
+          "category": "DMARC"
+        },
+        {
+          "name": "DMARC Subdomain Policy",
+          "status": "Pass",
+          "info": "reject",
+          "reason": "Subdomain policy explicitly defined.",
+          "recommendation": "No action needed.",
+          "category": "DMARC"
+        },
+        {
+          "name": "DMARC Percentage",
+          "status": "Pass",
+          "info": "100%",
+          "reason": "Policy applies to all emails.",
+          "recommendation": "No action needed.",
+          "category": "DMARC"
+        },
+        {
+          "name": "DMARC RUA Reports",
+          "status": "Pass",
+          "info": "Enabled",
+          "reason": "Aggregate reports configured correctly.",
+          "recommendation": "No action needed.",
+          "category": "DMARC"
+        },
+        {
+          "name": "DMARC RUF Reports",
+          "status": "Pass",
+          "info": "Enabled",
+          "reason": "Forensic reports configured (may not be supported by all providers).",
+          "recommendation": "No action needed.",
+          "category": "DMARC"
+        },
+        {
+          "name": "SPF Alignment Mode",
+          "status": "Pass",
+          "info": "Relaxed (Default)",
+          "reason": "Relaxed alignment allows subdomains.",
+          "recommendation": "No action needed.",
+          "category": "DMARC"
+        },
+        {
+          "name": "DKIM Alignment Mode",
+          "status": "Pass",
+          "info": "Relaxed (Default)",
+          "reason": "Relaxed alignment allows subdomains.",
+          "recommendation": "No action needed.",
+          "category": "DMARC"
+        },
+        {
+          "name": "BIMI Readiness",
+          "status": "Pass",
+          "info": "Ready",
+          "reason": "DMARC policy supports BIMI implementation.",
+          "recommendation": "You can now set up a BIMI record.",
+          "host": "app3fcaptiveservicesdev.com",
+          "result": "BIMI Ready",
+          "category": "DMARC"
+        }
+      ],
+      "stats": {
+        "passed": 9,
+        "warnings": 0,
+        "errors": 0
+      }
+    },
+    "dkim": {
+      "category": "DKIM",
+      "tests": [
+        {
+          "name": "DKIM Selectors",
+          "status": "Pass",
+          "info": "Info: Selector not discoverable",
+          "reason": "Common selectors were checked but not found. This is normal if you use custom selectors.",
+          "recommendation": "No action needed unless you are missing DKIM.",
+          "category": "DKIM"
+        }
+      ],
+      "stats": {
+        "passed": 1,
+        "warnings": 0,
+        "errors": 0
+      }
+    },
+    "blacklist": {
+      "category": "Blacklist",
+      "tests": [
+        {
+          "name": "Spamhaus DBL",
+          "status": "Warning",
+          "info": "TIMEOUT",
+          "reason": "app3fcaptiveservicesdev.com is clean on Spamhaus DBL",
+          "recommendation": "No action needed.",
+          "category": "Blacklist"
+        },
+        {
+          "name": "SURBL (multi)",
+          "status": "Warning",
+          "info": "TIMEOUT",
+          "reason": "app3fcaptiveservicesdev.com is clean on SURBL (multi)",
+          "recommendation": "No action needed.",
+          "category": "Blacklist"
+        },
+        {
+          "name": "SEM FRESH",
+          "status": "Warning",
+          "info": "TIMEOUT",
+          "reason": "app3fcaptiveservicesdev.com is clean on SEM FRESH",
+          "recommendation": "No action needed.",
+          "category": "Blacklist"
+        },
+        {
+          "name": "SEM URI",
+          "status": "Warning",
+          "info": "TIMEOUT",
+          "reason": "app3fcaptiveservicesdev.com is clean on SEM URI",
+          "recommendation": "No action needed.",
+          "category": "Blacklist"
+        },
+        {
+          "name": "SEM URIRED",
+          "status": "Warning",
+          "info": "TIMEOUT",
+          "reason": "app3fcaptiveservicesdev.com is clean on SEM URIRED",
+          "recommendation": "No action needed.",
+          "category": "Blacklist"
+        },
+        {
+          "name": "ivmURI",
+          "status": "Warning",
+          "info": "TIMEOUT",
+          "reason": "app3fcaptiveservicesdev.com is clean on ivmURI",
+          "recommendation": "No action needed.",
+          "category": "Blacklist"
+        },
+        {
+          "name": "NordSpam DBL",
+          "status": "Warning",
+          "info": "TIMEOUT",
+          "reason": "app3fcaptiveservicesdev.com is clean on NordSpam DBL",
+          "recommendation": "No action needed.",
+          "category": "Blacklist"
+        },
+        {
+          "name": "SORBS RHSBL",
+          "status": "Warning",
+          "info": "TIMEOUT",
+          "reason": "app3fcaptiveservicesdev.com is clean on SORBS RHSBL",
+          "recommendation": "No action needed.",
+          "category": "Blacklist"
+        },
+        {
+          "name": "MX IP Resolution",
+          "status": "Error",
+          "info": "Could not resolve any MX IPs",
+          "reason": "DNS lookup for all MX hosts failed.",
+          "recommendation": "Check if your MX hosts exist.",
+          "category": "Blacklist"
+        }
+      ],
+      "stats": {
+        "passed": 0,
+        "warnings": 8,
+        "errors": 1
+      }
+    },
+    "webServer": {
+      "category": "Web Server",
+      "tests": [
+        {
+          "name": "HTTP Redirection",
+          "status": "Pass",
+          "info": "Redirects to HTTPS",
+          "reason": "HTTP properly redirects to secure HTTPS.",
+          "recommendation": "No action needed.",
+          "category": "Web Server"
+        },
+        {
+          "name": "HTTPS Availability",
+          "status": "Pass",
+          "info": "Status 200",
+          "reason": "HTTPS is accessible.",
+          "recommendation": "No action needed.",
+          "category": "Web Server"
+        },
+        {
+          "name": "SSL Certificate",
+          "status": "Pass",
+          "info": "Valid (50 days left)",
+          "reason": "Certificate is valid.",
+          "recommendation": "No action needed.",
+          "category": "Web Server"
+        },
+        {
+          "name": "SSL Chain",
+          "status": "Pass",
+          "info": "Valid",
+          "reason": "Certificate chain is trusted.",
+          "recommendation": "No action needed.",
+          "category": "Web Server"
+        }
+      ],
+      "stats": {
+        "passed": 4,
+        "warnings": 0,
+        "errors": 0
+      }
+    },
+    "smtp": {
+      "category": "SMTP",
+      "tests": [
+        {
+          "name": "SMTP Connect",
+          "status": "Pass",
+          "info": "Skipped (Passive)",
+          "reason": "We do not perform active SMTP probing (sending test packets) to ensure legal safety and avoid blacklisting.",
+          "recommendation": "This is a passive health check tool.",
+          "category": "SMTP"
+        },
+        {
+          "name": "Open Relay",
+          "status": "Pass",
+          "info": "Skipped (Passive)",
+          "reason": "Open relay testing requires active intrusion attempts, which we strictly avoid.",
+          "recommendation": "Use internal tools to verify relay security.",
+          "category": "SMTP"
+        }
+      ],
+      "stats": {
+        "passed": 2,
+        "warnings": 0,
+        "errors": 0
+      }
+    }
+  }
+}
