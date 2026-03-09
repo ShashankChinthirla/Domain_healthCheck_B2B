@@ -310,6 +310,32 @@ function AdminDashboardContent() {
   };
 
   const [isDownloadingAutomation, setIsDownloadingAutomation] = useState(false);
+  const [isAutomating, setIsAutomating] = useState(false);
+
+  const handleRunAutomation = async () => {
+    if (!user) return;
+    setIsAutomating(true);
+    try {
+      const token = await user.getIdToken();
+      const response = await fetch('/api/run-automation', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+      const data = await response.json();
+      if (!response.ok || !data.success) {
+        throw new Error(data.error || 'Failed to start automation');
+      }
+
+      toast.success(data.message || 'Automation started successfully! Watch the logs below.');
+    } catch (error: any) {
+      console.error("Failed to start automation:", error);
+      toast.error(error.message || "Failed to trigger background automation.");
+    } finally {
+      setIsAutomating(false);
+    }
+  };
 
   const handleDownloadAutomationReport = async () => {
     if (!user) return;
@@ -720,6 +746,17 @@ function AdminDashboardContent() {
                 </div>
               </div>
               <div className="flex items-center gap-4">
+                <button
+                  onClick={handleRunAutomation}
+                  disabled={isAutomating}
+                  className="flex items-center gap-2 px-4 py-1.5 bg-blue-500/10 hover:bg-blue-500/20 text-blue-400 text-xs font-bold rounded-lg border border-blue-500/20 transition-colors disabled:opacity-50 cursor-pointer"
+                >
+                  {isAutomating ? (
+                    <><span className="w-3.5 h-3.5 border-2 border-blue-400/20 border-t-blue-400 rounded-full animate-spin" /> Starting...</>
+                  ) : (
+                    <><Zap className="w-3.5 h-3.5" /> Run Automation Now</>
+                  )}
+                </button>
                 <button
                   onClick={handleDownloadAutomationReport}
                   disabled={isDownloadingAutomation}

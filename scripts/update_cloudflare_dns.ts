@@ -95,7 +95,14 @@ async function updateCloudflareDns() {
         const integrationsCollection = db.collection('integrations');
 
         // Target domains recently synced from Cloudflare waiting to be processed
-        const pendingDocs = await collection.find({ issueCategory: 'Needs_Scan' }).toArray();
+        const userArgIndex = process.argv.indexOf('--user');
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const query: any = { issueCategory: 'Needs_Scan' };
+        if (userArgIndex !== -1 && process.argv.length > userArgIndex + 1) {
+            query.ownerUserId = process.argv[userArgIndex + 1];
+        }
+
+        const pendingDocs = await collection.find(query).toArray();
         console.log(`Discovered ${pendingDocs.length} 'Needs_Scan' domains pending DNS Security injection.`);
 
         if (pendingDocs.length === 0) {
